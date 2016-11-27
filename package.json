@@ -1,0 +1,33 @@
+{
+  "name": "internet-monitor",
+  "version": "1.0.0",
+  "description": "Tool to monitor internet connectivity and log downtime",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aaron Colaco",
+  "license": "MIT",
+  "dependencies": {
+    "moment": "^2.17.0",
+    "ping": "^0.2.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aarongoa/internet-connection-monitor.git"
+  },
+  "keywords": [
+    "Internet",
+    "connection",
+    "monitor",
+    "node",
+    "raspberry",
+    "pi"
+  ],
+  "bugs": {
+    "url": "https://github.com/aarongoa/internet-connection-monitor/issues"
+  },
+  "homepage": "https://github.com/aarongoa/internet-connection-monitor#readme"
+}
