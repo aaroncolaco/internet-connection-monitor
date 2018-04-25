@@ -5,54 +5,41 @@ const moment = require('moment');
 
 const hosts = ['google.com', 'yahoo.com'];
 
-const timeInterval = 1000 * 60;
+const timeInterval = 1000 * 30;
 
-var internetDownFlag = false;
+let internetDownFlag = false;
 
 const checkInternet = () => {
-  hosts.forEach((host) => {
-    ping.sys.probe(host, (isAlive) => {
+  hosts.map(host => {
+    ping.sys.probe(host, (isActive) => {
 
-      if (isAlive && internetDownFlag) {
-        // append timestamp to file to show internet is back
-        appendTimestamp();
+      if (isActive && internetDownFlag) {
+        // append timestamp on current line to show internet is back
+        addTimestamp(' --> ');
         internetDownFlag = false;
-      } else if (!isAlive) {
+      } else if (!isActive && !internetDownFlag) {
         // if net wasn't already down, add timestamp on new line
-        if (!internetDownFlag) {
-          addNewTimestamp();
-          internetDownFlag = true;
-        };
+        addTimestamp("/n");
+        internetDownFlag = true;
       };
     });
   });
 };
 
-// append timestamp on current line
-const appendTimestamp = () => {
-  fs.appendFile('./downtime.txt', ' --> ' + getDate(), function(err) {
+const addTimestamp = specialChar => {
+  fs.appendFile('./downtime.txt', specialChar + getDate(), err => {
     if (err) {
-      console.log(err);
+      console.error(err);
     };
   });
-}
-
-// add timestamp on new line
-const addNewTimestamp = () => {
-  fs.appendFile('./downtime.txt', '\n' + getDate(), function(err) {
-    if (err) {
-      console.log(err);
-    };
-  });
-}
+};
 
 const getDate = () => {
-  let date = moment().format('ddd MMM Do, h:mm a');
+  const date = moment().format('ddd MMM Do, h:mm a');
 
   return date;
 };
 
 // method repeats a given function at every given time-interval
-setInterval(function() {
-  checkInternet();
-}, timeInterval);
+checkInternet();
+setInterval(checkInternet, timeInterval);
