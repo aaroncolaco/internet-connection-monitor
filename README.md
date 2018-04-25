@@ -14,6 +14,8 @@ npm install
 npm start
 ```
 
+> Makes the assumption that it's started when network is present.
+
 
 ## Configuration
 
