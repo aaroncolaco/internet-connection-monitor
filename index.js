@@ -5,7 +5,7 @@ const moment = require('moment');
 
 const hosts = ['google.com', 'yahoo.com'];
 
-const timeInterval = 1000 * 60;
+const timeInterval = 1000 * 30;
 
 var internetDownFlag = false;
 
@@ -49,10 +49,12 @@ const addNewTimestamp = () => {
 const getDate = () => {
   let date = moment().format('ddd MMM Do, h:mm a');
 
-  return date;
+  return `${date} (${Date.now()})`;
 };
 
 // method repeats a given function at every given time-interval
 setInterval(function() {
   checkInternet();
 }, timeInterval);
+
+console.log(getDate());
